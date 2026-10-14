@@ -31,17 +31,17 @@ class Signal:
         if self.ticker == "TSLA":
             cross = "MA5 上穿 MA30" if self.direction == "BUY" else "MA5 下穿 MA30"
             trades = "卖出 ORLY → 买入 TSLA" if self.direction == "BUY" else "卖出 TSLA → 买入 ORLY"
-            return (f"交易日：{self.session}（美东）\\n{cross}\\n"
-                    f"TSLA 收盘：${self.price:.2f}\\nMA5：${self.ma_fast:.2f}｜MA30：${self.ma_slow:.2f}\\n"
-                    f"策略提醒：{trades}\\n仅提醒，不自动下单；请确认持仓与成本。")
+            return (f"交易日：{self.session}（美东）\n{cross}\n"
+                    f"TSLA 收盘：${self.price:.2f}\nMA5：${self.ma_fast:.2f}｜MA30：${self.ma_slow:.2f}\n"
+                    f"策略提醒：{trades}\n仅提醒，不自动下单；请确认持仓与成本。")
         cross = "上穿 MA225×1.01" if self.direction == "BUY" else "下穿 MA225×0.99"
         defensive = "/".join(DEFENSIVE)
         trades = (f"减持防御组合 {defensive} → 买入 {self.ticker}" if self.direction == "BUY"
                   else f"卖出 {self.ticker} → 买入防御组合 {defensive}")
-        return (f"交易日：{self.session}（美东）\\n{cross}\\n"
-                f"{self.ticker} 收盘：${self.price:.2f}\\n"
-                f"MA225：${self.ma_slow:.2f}｜触发线：${self.threshold:.2f}\\n"
-                f"策略提醒：{trades}\\n多个成长标的可能同时出现反向信号，需人工确认仓位。")
+        return (f"交易日：{self.session}（美东）\n{cross}\n"
+                f"{self.ticker} 收盘：${self.price:.2f}\n"
+                f"MA225：${self.ma_slow:.2f}｜触发线：${self.threshold:.2f}\n"
+                f"策略提醒：{trades}\n多个成长标的可能同时出现反向信号，需人工确认仓位。")
 
 def check_signal(ticker: str, closes: pd.Series) -> Signal | None:
     if ticker not in TICKERS:
